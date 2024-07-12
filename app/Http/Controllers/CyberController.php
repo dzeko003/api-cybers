@@ -44,6 +44,7 @@ class CyberController extends Controller
                 'latitude' => 'required|numeric',
                 'address' => 'required|string|max:255',
                 'printers' => 'required|integer',
+                'img' => 'nullable|string|max:255',
             ]);
 
             $cyber = Cyber::create($validatedData);
@@ -72,6 +73,7 @@ class CyberController extends Controller
                     'latitude' => $cyberData['latitude'],
                     'address' => $cyberData['address'],
                     'printers' => $cyberData['printers'],
+                    'img' => 'nullable|string|max:255',
                   
                 ]);
             }

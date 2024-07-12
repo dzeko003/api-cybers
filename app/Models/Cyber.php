@@ -22,5 +22,6 @@ class Cyber extends Model
         'longitude',
         'address',
         'printers',
+        'img',
     ];
 }
