@@ -19,7 +19,10 @@ return [
 
     'allowed_methods' => ['*'],
 
-    'allowed_origins' => ['*'],
+    'allowed_origins' => [
+        'http://localhost:3001'
+        // Ajoutez d'autres origines si nécessaire
+    ],
 
     'allowed_origins_patterns' => [],
 

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Cyber;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
 class CyberController extends Controller
 {
@@ -83,6 +84,59 @@ class CyberController extends Controller
             // Pour toute autre exception non prévue
             return response()->json(['message' => 'Failed to process request', 'error' => $e->getMessage()], 500);
         }
+    }
+
+    public function update(Request $request, $id)
+    {
+        // Validate the incoming request data
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'longitude' => 'required|numeric',
+            'latitude' => 'required|numeric',
+            'address' => 'required|string|max:255',
+            'printers' => 'required|integer',
+            'img' => 'nullable|url',
+        ]);
+
+        // Find the cyber by ID
+        $cyber = Cyber::findOrFail($id);
+
+        // Update the cyber with new data
+        $cyber->update([
+            'name' => $request->input('name'),
+            'longitude' => $request->input('longitude'),
+            'latitude' => $request->input('latitude'),
+            'address' => $request->input('address'),
+            'printers' => $request->input('printers'),
+            'img' => $request->input('img'),
+        ]);
+
+        // Return a response
+        return response()->json([
+            'message' => 'Cyber updated successfully',
+            'cyber' => $cyber
+        ], 200);
+    }
+
+    public function destroy($id)
+    {
+        // Trouver le cyber par ID
+        $cyber = Cyber::find($id);
+
+        // Vérifier si le cyber existe
+        if (!$cyber) {
+            return response()->json([
+                'message' => 'Cyber not found',
+            ], Response::HTTP_NOT_FOUND);
+        }
+
+        // Supprimer le cyber
+        $cyber->delete();
+
+        // Retourner une réponse de succès
+        return response()->json([
+            'message' => 'Cyber deleted successfully',
+        ], Response::HTTP_OK);
     }
 
 }

@@ -30,6 +30,16 @@ Route::post('/cybers/batch', [CyberController::class, 'storeBatch']);
 // Get
 Route::get('/cybers', [CyberController::class, 'index']);
 Route::get('/cybers/{id}', [CyberController::class, 'show']);
+
+
+// PUT
+
+Route::put('/cybers/{id}', [CyberController::class, 'update']);
+
+
+// DELETE
+
+Route::delete('/cybers/{id}', [CyberController::class, 'destroy']);
  
 
 
